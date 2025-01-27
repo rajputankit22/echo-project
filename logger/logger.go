@@ -55,22 +55,27 @@ func GetLogger() *zap.Logger {
 
 // Debug - logs a message at Debug level with the request id
 func Debug(rid string, msg string, fields ...interface{}) {
-	GetLogger().WithOptions(zap.AddCallerSkip(1), zap.WithCaller(true)).Debug(fmt.Sprintf("[%s] %s", rid, msg), zap.Reflect("data", fields))
+	GetLogger().WithOptions(zap.AddCallerSkip(1), zap.WithCaller(true)).Debug(fmt.Sprintf("%s|%s", rid, msg), zap.Reflect("data", fields))
 }
 
 // Info - logs a message at Info level with the request id
 func Info(rid string, msg string, fields ...interface{}) {
-	GetLogger().WithOptions(zap.AddCallerSkip(1), zap.WithCaller(true)).Info(fmt.Sprintf("[%s] %s", rid, msg), zap.Reflect("data", fields))
+	GetLogger().WithOptions(zap.AddCallerSkip(1), zap.WithCaller(true)).Info(fmt.Sprintf("%s|%s", rid, msg), zap.Reflect("data", fields))
+}
+
+// Trace - logs a message at Info level
+func Trace(msg string, fields ...interface{}) {
+	GetLogger().WithOptions(zap.AddCallerSkip(1), zap.WithCaller(true)).Info(msg)
 }
 
 // Error - logs a message at Error level with the request id
 func Error(rid string, msg string, err ...interface{}) {
-	GetLogger().WithOptions(zap.AddCallerSkip(1), zap.WithCaller(true)).Error(fmt.Sprintf("[%s] %s", rid, msg), zap.Reflect("error", err))
+	GetLogger().WithOptions(zap.AddCallerSkip(1), zap.WithCaller(true)).Error(fmt.Sprintf("%s|%s", rid, msg), zap.Reflect("error", err))
 }
 
 // Error - logs a message at Error level with the request id
 func Warn(rid string, msg string, err ...interface{}) {
-	GetLogger().WithOptions(zap.AddCallerSkip(1), zap.WithCaller(true)).Warn(fmt.Sprintf("[%s] %s", rid, msg), zap.Reflect("error", err))
+	GetLogger().WithOptions(zap.AddCallerSkip(1), zap.WithCaller(true)).Warn(fmt.Sprintf("%s|%s", rid, msg), zap.Reflect("error", err))
 }
 
 // Close flushes any buffered log entries. Processes should take care to call Sync before exiting.

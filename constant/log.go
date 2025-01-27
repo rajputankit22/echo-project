@@ -1,5 +1,6 @@
 package constant
 
+// Some default values for the application
 const (
 	// LogLevel - the log level for the application
 	DefaultLogLevel     = "debug"

@@ -17,7 +17,17 @@ config struct - holds the configuration for the application
 type config struct {
 	LogLevel string `env:"LOG_LEVEL" envDefault:"debug"`
 	HTTPPort string `env:"HTTP_PORT" envDefault:":8090"`
+	Cache cache
 }
+
+// Cache - holds the configuration for the cache
+type cache struct {
+	Host     string `env:"CACHE_HOST" envDefault:"localhost"`
+	Port     string `env:"CACHE_PORT" envDefault:"6379"`
+	Password string `env:"CACHE_PASSWORD" envDefault:""`
+	DB       int    `env:"CACHE_DB" envDefault:"0"`
+}
+
 
 func Init() *config {
 	// Load the .env file

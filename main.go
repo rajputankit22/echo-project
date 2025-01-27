@@ -7,11 +7,10 @@ import (
 	"echo-project/config"
 
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 )
 
 func init() {
-	logger.Info("123", "Starting the application")
+	// logger.Trace("Starting the application")
 }
 
 func main() {
@@ -21,9 +20,10 @@ func main() {
 	defer logger.CloseLogger() // Close the logger when done
 
 	// Middleware
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
+	// e.Use(middleware.Logger())
+	// e.Use(middleware.Recover())
 
+	logger.Trace("Starting the application")
 	servers.InitRoutes(e)                             // Initialize the routes
 	e.Logger.Fatal(e.Start(config.Config().HTTPPort)) // Start the server
 }
