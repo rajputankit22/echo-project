@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"echo-project/logger"
+	"echo-project/mongodb"
 	"echo-project/redis"
 	"echo-project/servers/services"
 	"net/http"
@@ -14,13 +15,15 @@ import (
 type homeController struct {
 	service     services.HomeServiceInterface
 	redisClient redis.CacheInterface
+	mongoClient mongodb.MongoDBInterface
 }
 
 // Constructor function for homeController
-func NewHomeController(service services.HomeServiceInterface, redisClient redis.CacheInterface) HomeControllerInterface {
+func NewHomeController(service services.HomeServiceInterface, redisClient redis.CacheInterface, mongoClient mongodb.MongoDBInterface) HomeControllerInterface {
 	return &homeController{
 		service:     service,
 		redisClient: redisClient,
+		mongoClient: mongoClient,
 	}
 }
 
