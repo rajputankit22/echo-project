@@ -29,11 +29,12 @@ func InitRoutes(e *echo.Echo) { // Define the InitRoutes function that takes an 
 
 	// Create monodb connection
 	// var errorMongo error
-	defer mongoClient.Disconnect()// Disconnect the MongoDB client when done
+	defer mongoClient.Disconnect() // Disconnect the MongoDB client when done
 
 	// mongoClient, errorMongo := mongo.NewMongoDBAdapter() // Create a new MongoDBAdapter instance
 	homeService := services.NewHomeService()                                               // Create a new HomeService instance
 	homeController := controllers.NewHomeController(homeService, redisClient, mongoClient) // Create a new HomeController instance
 
-	e.GET("/", homeController.Home) // Add a route for the home page
+	// e.GET("/", homeController.Home) // Add a route for the home page
+	e.POST("/", homeController.Home) // Add a route for the home page
 }

@@ -2,6 +2,7 @@ package main
 
 import (
 	"echo-project/logger"
+	"echo-project/middleware/validator"
 	"echo-project/servers"
 
 	"echo-project/config"
@@ -15,6 +16,8 @@ func init() {
 
 func main() {
 	e := echo.New() // Create a new Echo instance
+
+	e.Validator = validator.NewValidatorAdapter() // Create a new Echo instance
 
 	// Initialize the logger
 	defer logger.CloseLogger() // Close the logger when done

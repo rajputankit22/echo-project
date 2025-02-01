@@ -31,12 +31,13 @@ type cache struct {
 
 // Mongo - holds the configuration for the MongoDB
 type mongo struct {
-	URI      string `env:"MONGO_URI" envDefault:"mongodb://localhost:27017/firstdb"`
-	Host     string `env:"MONGO_HOST" envDefault:"localhost"`
-	Port     string `env:"MONGO_PORT" envDefault:"27017"`
-	Username string `env:"MONGO_USERNAME" envDefault:""`
-	Password string `env:"MONGO_PASSWORD" envDefault:""`
-	DBName   string `env:"MONGO_DB" envDefault:"firstdb"`
+	URI            string `env:"MONGO_URI" envDefault:"mongodb://localhost:27017/firstdb"`
+	Host           string `env:"MONGO_HOST" envDefault:"localhost"`
+	Port           string `env:"MONGO_PORT" envDefault:"27017"`
+	Username       string `env:"MONGO_USERNAME" envDefault:""`
+	Password       string `env:"MONGO_PASSWORD" envDefault:""`
+	DBName         string `env:"MONGO_DB" envDefault:"firstdb"`
+	CollectionName string `env:"COLLECTION_NAME" envDefault:"users"`
 }
 
 func Init() *config {

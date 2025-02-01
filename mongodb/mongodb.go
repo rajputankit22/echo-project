@@ -5,6 +5,7 @@ import (
 	"echo-project/config"
 	"echo-project/logger"
 
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -13,6 +14,13 @@ var (
 	ctx              = context.Background()
 	newMongoDBClient = newMongoDB
 )
+
+// MongoDBInterface - interface for MongoDB
+type MongoDBInterface interface {
+	Disconnect() error
+	FindOne(collection string, filter interface{}) (interface{}, error)
+	InsertOne(collection string, document interface{}) error
+}
 
 // MongoDB - struct for MongoDB
 type mongoDB struct {
@@ -55,10 +63,27 @@ func newMongoDB() *mongo.Client {
 	// Get a reference to the database "firstdb"
 	dbName := config.Config().Mongo.DBName
 	db := client.Database(dbName)
+	collectionName := config.Config().Mongo.CollectionName
 
 	// Get a reference to a collection
-	collection := db.Collection("users")
+	collection := db.Collection(collectionName)
 	logger.Trace("Successfully created collection: " + collection.Name())
-
+	if collection.Name() == collectionName {
+		createUserIndexes(collection)
+	}
 	return client
+}
+
+// Create indexes for the "users" collection
+func createUserIndexes(collection *mongo.Collection) {
+	indexModel := mongo.IndexModel{
+		Keys:    bson.M{"email": 1},              // 1 means ascending order
+		Options: options.Index().SetUnique(true), // Ensuring unique emails
+	}
+
+	indexName, err := collection.Indexes().CreateOne(ctx, indexModel)
+	if err != nil {
+		logger.Error("", "Failed to create index:", err)
+	}
+	logger.Info("", "Index created", indexName)
 }
