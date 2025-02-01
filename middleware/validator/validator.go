@@ -68,9 +68,8 @@ func (v *Validator) newValidatorError(err error) *ValidationError {
 			Msg: "success",
 		}
 	}
-	switch err.(type) {
+	switch errs := err.(type) {
 	case validator.ValidationErrors:
-		errs, _ := err.(validator.ValidationErrors)
 		return v.formValidatorErrors(errs)
 	default:
 		return &ValidationError{

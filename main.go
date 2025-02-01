@@ -2,6 +2,7 @@ package main
 
 import (
 	"echo-project/logger"
+	requestid "echo-project/middleware/requestId"
 	"echo-project/middleware/validator"
 	"echo-project/servers"
 
@@ -25,6 +26,9 @@ func main() {
 	// Middleware
 	// e.Use(middleware.Logger())
 	// e.Use(middleware.Recover())
+
+	// Add Custom Request ID Middleware
+	e.Use(requestid.RequestIDMiddleware())
 
 	logger.Trace("Starting the application")
 	servers.InitRoutes(e)                             // Initialize the routes
