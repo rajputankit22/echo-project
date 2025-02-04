@@ -34,7 +34,7 @@ func (u *UserRequest) Bind(rid string, c echo.Context, user *model.User, userReq
 	}
 	// Validate user request
 	if err := c.Validate(userRequest); err != nil {
-		logger.Error(rid, "Error validating request", err)
+		logger.Warn(rid, "Error validating request", err)
 		return err
 	}
 

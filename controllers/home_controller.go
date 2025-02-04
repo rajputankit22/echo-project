@@ -53,7 +53,7 @@ func (h *homeController) Home(c echo.Context) error {
 	userRequest := new(request.UserRequest)
 
 	if err = h.userRequest.Bind(requestID, c, user, userRequest); err != nil {
-		logger.Error(requestID, "Error binding and validating request", err)
+		logger.Warn(requestID, "Error binding and validating request", err)
 	}
 
 	if err != nil {

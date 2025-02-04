@@ -1,11 +1,11 @@
 package servers
 
 import ( // Import the necessary packages
+	"echo-project/controllers" // Import the controllers package
 	"echo-project/logger"
 	"echo-project/mongodb"
 	"echo-project/redis"
-	"echo-project/servers/controllers" // Import the controllers package
-	"echo-project/servers/services"    // Import the services package
+	"echo-project/servers/services" // Import the services package
 
 	// Import the net/http package
 	"github.com/labstack/echo/v4" // Import the echo package
